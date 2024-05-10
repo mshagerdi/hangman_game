@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   word_generator: ^0.4.4
   provider: ^6.1.2
+  http: ^1.2.1
+  free_english_dictionary: ^0.0.3
 
 dev_dependencies:
   flutter_test:

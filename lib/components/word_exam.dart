@@ -31,10 +31,13 @@ class WordExam extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.all(13),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: getCharactersList(),
+      child: Container(
+        height: 33,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: getCharactersList(),
+          ),
         ),
       ),
     );
