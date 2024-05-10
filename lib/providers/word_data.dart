@@ -1,18 +1,11 @@
-// import 'package:dictionaryx/dictentry.dart';
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hangman_game/utilities/constants.dart';
 import 'package:word_generator/word_generator.dart';
 import 'package:http/http.dart' as http;
-import 'package:free_english_dictionary/free_english_dictionary.dart';
-
-// import 'package:dictionaryx/dictionary_reduced_msa.dart';
 
 class WordData extends ChangeNotifier {
-  // var dReducedMSA = DictionaryReducedMSA();
-
   String _word = 'W E L C O M E';
   Map<String, bool> _wordCharactersMap = {};
   Map<String, bool> _charactersMap = {};
@@ -95,12 +88,12 @@ class WordData extends ChangeNotifier {
   }
 
   void newWord() {
+    if (!_isFin || _falseAnswersCount == 6) _score = 0;
+
     _isFin = false;
 
     _hint = '';
     _hints = [];
-
-    if (_falseAnswersCount == 6) _score = 0;
 
     _falseAnswersCount = 0;
     _correctAnswersCount = 0;
@@ -150,8 +143,13 @@ class WordData extends ChangeNotifier {
   }
 
   void checkFin() {
-    if (_falseAnswersCount == 6 ||
-        _correctAnswersCount == _wordCharactersMap.length) {
+    if (_falseAnswersCount == 6) {
+      _hint = 'You loose.';
+      print('finished');
+      _isFin = true;
+    }
+    if (_correctAnswersCount == _wordCharactersMap.length) {
+      _hint = 'You win.';
       print('finished');
       _isFin = true;
     }

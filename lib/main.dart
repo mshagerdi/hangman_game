@@ -5,12 +5,17 @@ import 'package:hangman_game/components/hint.dart';
 import 'package:hangman_game/components/word_exam.dart';
 import 'package:hangman_game/providers/word_data.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      // DeviceOrientation.portraitDown,
+    ]);
     return ChangeNotifierProvider(
         create: (context) => WordData(),
         builder: (context, child) {
