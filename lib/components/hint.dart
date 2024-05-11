@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hangman_game/providers/word_data.dart';
+import 'package:hangman_game/providers/word_data_provider.dart';
 import 'package:provider/provider.dart';
 
 class Hint extends StatelessWidget {
@@ -11,7 +11,8 @@ class Hint extends StatelessWidget {
     return Expanded(
       child: Card(
         margin: EdgeInsets.all(13),
-        child: Padding(padding: EdgeInsets.all(13),
+        child: Padding(
+          padding: EdgeInsets.all(13),
           child: SingleChildScrollView(
             child: Align(
               child: Text(

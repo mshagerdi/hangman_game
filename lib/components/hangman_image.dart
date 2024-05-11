@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hangman_game/components/score.dart';
-import 'package:hangman_game/providers/word_data.dart';
+import 'package:hangman_game/providers/word_data_provider.dart';
 import 'package:provider/provider.dart';
 
 class HangmanImage extends StatelessWidget {
@@ -19,9 +19,7 @@ class HangmanImage extends StatelessWidget {
             child: Image(
               height: 181,
               image: AssetImage(
-                  'images/${Provider
-                      .of<WordData>(context)
-                      .falseAnswersCount}.png'),
+                  'images/${Provider.of<WordData>(context).falseAnswersCount}.png'),
             ),
           ),
         ],

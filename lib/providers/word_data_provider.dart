@@ -149,7 +149,7 @@ class WordData extends ChangeNotifier {
       _isFin = true;
     }
     if (_correctAnswersCount == _wordCharactersMap.length) {
-      _hint = 'You win.';
+      if (_word != 'W E L C O M E') _hint = 'You win.';
       print('finished');
       _isFin = true;
     }

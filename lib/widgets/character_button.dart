@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hangman_game/providers/word_data.dart';
+import 'package:hangman_game/providers/word_data_provider.dart';
 import 'package:provider/provider.dart';
 
 class CharacterButton extends StatelessWidget {
