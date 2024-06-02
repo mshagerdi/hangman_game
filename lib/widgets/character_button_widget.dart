@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hangman_game/providers/word_data_provider.dart';
 import 'package:provider/provider.dart';
 
-class CharacterButton extends StatelessWidget {
+class CharacterButtonWidget extends StatelessWidget {
   String buttonLabel;
 
-  CharacterButton(this.buttonLabel);
+  CharacterButtonWidget(this.buttonLabel);
 
   @override
   Widget build(BuildContext context) {

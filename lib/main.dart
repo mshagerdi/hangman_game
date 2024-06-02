@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hangman_game/providers/authentication_provider.dart';
 import 'package:hangman_game/providers/dark_theme_provider.dart';
 
 import 'package:hangman_game/providers/word_data_provider.dart';
@@ -7,22 +8,34 @@ import 'package:hangman_game/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   WordData wordDataProvider = WordData();
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
+  AuthenticationProvider authProvider = AuthenticationProvider();
+
+  void getCurrentAppTheme() async {
+    darkThemeProvider.darkTheme =
+        await darkThemeProvider.darkThemePreferences.loadTheme();
+  }
 
   @override
   Widget build(BuildContext context) {
+    getCurrentAppTheme();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       // DeviceOrientation.portraitDown,
     ]);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => wordDataProvider),
         ChangeNotifierProvider(create: (_) => darkThemeProvider),
+        ChangeNotifierProvider(create: (_) => authProvider),
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, value, child) => MaterialApp(
@@ -36,15 +49,5 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-
-    // ChangeNotifierProvider(
-    //     create: (context) => WordData(),
-    //     builder: (context, child) {
-    //       Provider.of<WordData>(context, listen: false).checkFin();
-    //       return MaterialApp(
-    //         theme: ThemeData.dark(),
-    //         home: GameScreen(),
-    //       );
-    //     });
   }
 }

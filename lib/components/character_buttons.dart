@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hangman_game/utilities/constants.dart';
-import 'package:hangman_game/widgets/character_button.dart';
+import 'package:hangman_game/widgets/character_button_widget.dart';
 
 class CharacterButtons extends StatelessWidget {
-  List<CharacterButton> characterButtonList = [];
+  List<CharacterButtonWidget> characterButtonList = [];
 
-  List<CharacterButton> buttonsList() {
+  List<CharacterButtonWidget> buttonsList() {
     for (String character in characters) {
-      characterButtonList.add(CharacterButton(character));
+      characterButtonList.add(CharacterButtonWidget(character));
     }
     return characterButtonList;
   }
