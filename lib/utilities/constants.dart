@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+
+Text appTitle = Text('H A N G 𓍯 M A N');
 const List<String> characters = [
   'A',
   'B',
@@ -27,3 +30,12 @@ const List<String> characters = [
   'Z',
   ' '
 ];
+
+String emailText = 'Email';
+String passwordText = 'Password';
+String rePasswordText = 'Re-type Password';
+String nameText = 'Full Name';
+String usernameText = 'Username';
+String signUpText = 'Signup';
+String signInText = 'login';
+String errorText = 'Error';

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hangman_game/utilities/constants.dart';
 
 class AppTextField extends StatefulWidget {
   final TextEditingController textController;
@@ -21,6 +22,7 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   bool _isObscured = false;
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,25 @@ class _AppTextFieldState extends State<AppTextField> {
               spreadRadius: 1,
             ),
           ]),
-      child: TextField(
-        keyboardType: widget.hintText.contains('Email')
+      child: TextFormField(
+        onChanged: (value) {
+          setState(() {
+            if (widget.hintText == passwordText) _password = value;
+          });
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) return 'Please enter some text';
+          if (value.length < 3) return 'can\'t be less than 3 characters.';
+          if (widget.hintText.contains(emailText) &&
+              !widget.hintText.contains('@'))
+            return 'Please enter a valid Email';
+
+          if (widget.hintText == rePasswordText && value != _password)
+            return 'Password mismatch';
+
+          return null;
+        },
+        keyboardType: widget.hintText.contains(emailText)
             ? TextInputType.emailAddress
             : TextInputType.visiblePassword,
         obscureText: _isObscured,

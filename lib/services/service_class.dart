@@ -10,11 +10,10 @@ Future<http.Response?> register(SignupBody data) async {
   try {
     response =
         await http.post(Uri.parse("${AppUrl.baseUrl}/api/user/signup.php"),
-            headers: {
-              HttpHeaders.contentTypeHeader: "application/json",
-            },
-            body: jsonEncode(data.toJson()));
-    print(jsonEncode(data.toJson()));
+            // headers: {
+            //   HttpHeaders.contentTypeHeader: "application/json",
+            // },
+            body: (data.toJson()));
   } catch (e) {
     log(e.toString());
     print(e);

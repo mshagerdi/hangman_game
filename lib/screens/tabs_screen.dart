@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hangman_game/components/login_tab.dart';
-import 'package:hangman_game/components/signup_tab.dart';
+import 'package:hangman_game/components/custom_login_tab.dart';
+import 'package:hangman_game/components/custom_signup_tab.dart';
+import 'package:hangman_game/utilities/constants.dart';
 import 'package:hangman_game/widgets/theme_button_widget.dart';
 
 class TabsScreen extends StatelessWidget {
@@ -13,8 +14,9 @@ class TabsScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          title: Text('H A N G 𓍯 M A N'),
+          title: appTitle,
           actions: [
             ThemeButtonWidget(),
             SizedBox(
@@ -30,8 +32,8 @@ class TabsScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            LoginTab(),
-            SignupTab(),
+            CustomLoginTab(),
+            CustomSignupTab(),
           ],
         ),
       ),

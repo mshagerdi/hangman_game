@@ -5,6 +5,7 @@ import 'package:hangman_game/components/hint.dart';
 import 'package:hangman_game/components/word_exam.dart';
 import 'package:hangman_game/providers/word_data_provider.dart';
 import 'package:hangman_game/screens/tabs_screen.dart';
+import 'package:hangman_game/utilities/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:hangman_game/widgets/theme_button_widget.dart';
 
@@ -18,7 +19,7 @@ class GameScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('H A N G 𓍯 M A N'),
+        title: appTitle,
         actions: [
           ThemeButtonWidget(),
           IconButton(

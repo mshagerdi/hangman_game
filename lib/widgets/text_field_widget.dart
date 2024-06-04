@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  TextFieldWidget({required this.hintText, this.hideText});
+  TextFieldWidget({
+    required this.hintText,
+    required this.icon,
+    this.hideText,
+    required this.textController,
+  });
 
+  final TextEditingController textController;
   final String hintText;
+  final IconData icon;
   final bool? hideText;
 
   @override
@@ -25,6 +32,7 @@ class TextFieldWidget extends StatelessWidget {
                 : TextInputType.emailAddress,
             obscureText: _hideTheText,
             decoration: InputDecoration(
+              prefixIcon: Icon(icon),
               border: InputBorder.none,
               hintText: hintText,
               hintStyle: TextStyle(

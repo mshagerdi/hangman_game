@@ -42,12 +42,15 @@ import 'package:hangman_game/models/signup_model.dart';
 import 'package:hangman_game/providers/authentication_provider.dart';
 import 'package:hangman_game/screens/home_page.dart';
 import 'package:hangman_game/screens/tabs_screen.dart';
+import 'package:hangman_game/utilities/constants.dart';
+import 'package:hangman_game/widgets/app_button.dart';
 import 'package:hangman_game/widgets/app_text_field.dart';
+import 'package:hangman_game/widgets/text_field_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class SignupTab extends StatelessWidget {
-  const SignupTab({Key? key}) : super(key: key);
+class CustomSignupTab extends StatelessWidget {
+  const CustomSignupTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +59,8 @@ class SignupTab extends StatelessWidget {
     var passwordController = TextEditingController();
     var rePasswordController = TextEditingController();
     var nameController = TextEditingController();
+
+    final _formKey = GlobalKey<FormState>();
 
     Future<void> _registration() async {
       String name = nameController.text.trim();
@@ -82,29 +87,29 @@ class SignupTab extends StatelessWidget {
       }
     }
 
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: Consumer<AuthenticationProvider>(
-        builder: (context, data, child) {
-          return data.loading
-              ? Center(
-                  child: Container(
-                    child: SpinKitFadingCircle(
-                      itemBuilder: (BuildContext context, int index) {
-                        return DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: index.isEven ? Colors.red : Colors.green,
-                          ),
-                        );
-                      },
-                    ),
+    return Consumer<AuthenticationProvider>(
+      builder: (context, data, child) {
+        return data.loading
+            ? Center(
+                child: Container(
+                  child: SpinKitFadingCircle(
+                    itemBuilder: (BuildContext context, int index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: index.isEven ? Colors.red : Colors.green,
+                        ),
+                      );
+                    },
                   ),
-                )
-              : SingleChildScrollView(
+                ),
+              )
+            : Form(
+                key: _formKey,
+                child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      SizedBox(height: 100),
+                      SizedBox(height: 22),
                       //app logo
                       // Container(
                       //   height: 100,
@@ -118,16 +123,20 @@ class SignupTab extends StatelessWidget {
                       //Your Name
                       AppTextField(
                         textController: nameController,
-                        hintText: "Full Name",
+                        hintText: nameText,
                         icon: Icons.drive_file_rename_outline,
                       ),
+                      // TextFieldWidget(
+                      //   hintText: "Full Name",
+                      //   icon: Icons.drive_file_rename_outline,
+                      // ),
                       SizedBox(
                         height: 20 + 10,
                       ),
                       //your email
                       AppTextField(
                         textController: emailController,
-                        hintText: "Email",
+                        hintText: emailText,
                         icon: Icons.email,
                       ),
                       const SizedBox(
@@ -136,7 +145,7 @@ class SignupTab extends StatelessWidget {
                       //username
                       AppTextField(
                         textController: userController,
-                        hintText: "username",
+                        hintText: usernameText,
                         icon: Icons.person,
                       ),
                       SizedBox(
@@ -145,7 +154,7 @@ class SignupTab extends StatelessWidget {
                       //your password
                       AppTextField(
                         textController: passwordController,
-                        hintText: "Password",
+                        hintText: passwordText,
                         icon: Icons.password_sharp,
                         isObscure: true,
                       ),
@@ -155,7 +164,7 @@ class SignupTab extends StatelessWidget {
                       //your password
                       AppTextField(
                         textController: rePasswordController,
-                        hintText: "Re-type password",
+                        hintText: rePasswordText,
                         icon: Icons.password_sharp,
                         isObscure: true,
                       ),
@@ -166,37 +175,16 @@ class SignupTab extends StatelessWidget {
                       //sign up button
                       GestureDetector(
                         onTap: () {
-                          _registration();
+                          if (_formKey.currentState!.validate()) {
+                            _registration();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Error')),
+                            );
+                          }
                         },
-                        child: Container(
-                          height: 70,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 23),
-                          margin: const EdgeInsets.only(left: 40, right: 40),
-                          child: const Text(
-                            "Sign up",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xFF74beef),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(4, 4),
-                                  blurRadius: 15,
-                                  spreadRadius: 1,
-                                ),
-                                BoxShadow(
-                                  color: Colors.white,
-                                  offset: Offset(-4, -4),
-                                  blurRadius: 15,
-                                  spreadRadius: 1,
-                                ),
-                              ]),
+                        child: AppButton(
+                          buttonText: signUpText,
                         ),
                       ),
                       SizedBox(
@@ -223,9 +211,9 @@ class SignupTab extends StatelessWidget {
                       // ),
                     ],
                   ),
-                );
-        },
-      ),
+                ),
+              );
+      },
     );
   }
 }
