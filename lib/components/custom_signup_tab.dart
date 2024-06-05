@@ -76,7 +76,7 @@ class CustomSignupTab extends StatelessWidget {
       );
       var provider =
           Provider.of<AuthenticationProvider>(context, listen: false);
-      await provider.postData(signupBody);
+      await provider.postSignupData(signupBody);
       if (provider.isBack) {
         Navigator.push(
           context,
@@ -124,7 +124,7 @@ class CustomSignupTab extends StatelessWidget {
                       AppTextField(
                         textController: nameController,
                         hintText: nameText,
-                        icon: Icons.drive_file_rename_outline,
+                        icon: nameIcon,
                       ),
                       // TextFieldWidget(
                       //   hintText: "Full Name",
@@ -137,7 +137,7 @@ class CustomSignupTab extends StatelessWidget {
                       AppTextField(
                         textController: emailController,
                         hintText: emailText,
-                        icon: Icons.email,
+                        icon: emailIcon,
                       ),
                       const SizedBox(
                         height: 20,
@@ -146,7 +146,7 @@ class CustomSignupTab extends StatelessWidget {
                       AppTextField(
                         textController: userController,
                         hintText: usernameText,
-                        icon: Icons.person,
+                        icon: usernameIcon,
                       ),
                       SizedBox(
                         height: 20 + 10,
@@ -155,7 +155,7 @@ class CustomSignupTab extends StatelessWidget {
                       AppTextField(
                         textController: passwordController,
                         hintText: passwordText,
-                        icon: Icons.password_sharp,
+                        icon: passwordIcon,
                         isObscure: true,
                       ),
                       SizedBox(
@@ -165,7 +165,7 @@ class CustomSignupTab extends StatelessWidget {
                       AppTextField(
                         textController: rePasswordController,
                         hintText: rePasswordText,
-                        icon: Icons.password_sharp,
+                        icon: rePasswordIcon,
                         isObscure: true,
                       ),
                       SizedBox(

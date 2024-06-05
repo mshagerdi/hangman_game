@@ -23,9 +23,14 @@ class MyApp extends StatelessWidget {
         await darkThemeProvider.darkThemePreferences.loadTheme();
   }
 
+  void getUserCurrentStatus() async {
+    authProvider.loggedIn = await authProvider.userPreferences.loadStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     getCurrentAppTheme();
+    getUserCurrentStatus();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       // DeviceOrientation.portraitDown,

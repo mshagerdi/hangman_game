@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hangman_game/providers/authentication_provider.dart';
 import 'package:hangman_game/utilities/constants.dart';
+import 'package:provider/provider.dart';
 
 class AppTextField extends StatefulWidget {
   final TextEditingController textController;
@@ -22,10 +24,12 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   bool _isObscured = false;
-  String _password = '';
+
+  RegExp get _emailRegex => RegExp(r'^\S+@\S+$');
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthenticationProvider>(context);
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       decoration: BoxDecoration(
@@ -48,18 +52,18 @@ class _AppTextFieldState extends State<AppTextField> {
       child: TextFormField(
         onChanged: (value) {
           setState(() {
-            if (widget.hintText == passwordText) _password = value;
+            if (widget.hintText == passwordText)
+              authProvider.setPassword = value;
           });
         },
         validator: (value) {
           if (value == null || value.isEmpty) return 'Please enter some text';
           if (value.length < 3) return 'can\'t be less than 3 characters.';
           if (widget.hintText.contains(emailText) &&
-              !widget.hintText.contains('@'))
-            return 'Please enter a valid Email';
+              !_emailRegex.hasMatch(value)) return 'Email address is not valid';
 
-          if (widget.hintText == rePasswordText && value != _password)
-            return 'Password mismatch';
+          if (widget.hintText == rePasswordText &&
+              value != authProvider.password) return 'Password mismatch';
 
           return null;
         },
